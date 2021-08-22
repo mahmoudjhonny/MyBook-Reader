@@ -1,5 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
+import { update } from './BooksAPI'
 import './App.css'
 import Header from './Component/Header'
 import Search from './Component/Search'
@@ -15,7 +16,7 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books_info: []
+    books_info: [],
   }
 
   SearchState = (state) => {
@@ -26,13 +27,21 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(res => this.setState({books_info: res}))
   }
 
-  // ShelvesChanges = (books , shelf) => {
-  //   this.setState({
-  //     books_info: this.state.books_info.map(book => book.id === books.id ? (book.shelf = shelf) : book
-  //     )
-      
-  //   })
-  // }
+  handleChanges = (book, shelf) => {
+    update(book, shelf).then(() => {
+      this.setState(prevState => ({
+        // Filter all books in state to find correct book match
+        books: prevState.books.filter(b => {
+          if (b.id === book.id) {
+            // If book is found, set it's current shelf to a new one
+            return (book.shelf = shelf);
+          } else {
+            return book;
+          }
+        })
+      }));
+    });
+  };
 
   render() {
     return (
@@ -42,7 +51,7 @@ class BooksApp extends React.Component {
         ) : (
           <div className="list-books">
               <Header/>
-              <BookShelfs Books = {this.state.books_info} change = {this.ShelvesChanges}/>
+              <BookShelfs Books = {this.state.books_info} change = {this.handleChanges}/>
               <SearchButton showSearchPage = {this.SearchState}/>
           </div>
         )}
@@ -52,3 +61,13 @@ class BooksApp extends React.Component {
 }
 
 export default BooksApp
+
+
+// try{
+//   console.log(e.target.value);
+//   const book = this.props;
+//   const change = await update(book , e.target.value);
+//   console.log(change);
+//   } catch(error) {
+//     console.log(error);
+//   }
