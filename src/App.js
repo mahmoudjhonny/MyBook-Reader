@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(res => this.setState({books_info: res}))
   }
 
-  handleChanges = (book, shelf) => {
+  shelvesChanges = (book, shelf) => {
     update(book, shelf).then(() => {
       this.setState(prevState => ({
         // Filter all books in state to find correct book match
@@ -51,7 +51,7 @@ class BooksApp extends React.Component {
         ) : (
           <div className="list-books">
               <Header/>
-              <BookShelfs Books = {this.state.books_info} change = {this.handleChanges}/>
+              <BookShelfs Books = {this.state.books_info} change = {this.shelvesChanges}/>
               <SearchButton showSearchPage = {this.SearchState}/>
           </div>
         )}
@@ -60,14 +60,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
-
-
-// try{
-//   console.log(e.target.value);
-//   const book = this.props;
-//   const change = await update(book , e.target.value);
-//   console.log(change);
-//   } catch(error) {
-//     console.log(error);
-//   }
+export default BooksApp;
