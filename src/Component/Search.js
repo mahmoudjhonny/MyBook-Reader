@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {search} from '../BooksAPI'
-import BookShelfs from './BookShelfs';
+import CloseSearch from './CloseSearch';
+// import BookShelfs from './BookShelfs';
 
 class Search extends Component {
 
@@ -35,11 +36,7 @@ class Search extends Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search"
-                        onClick={() => { this.props.showSearchPage(false) }
-                        }>
-                        Close
-                    </button>
+                    <CloseSearch />
 
                     <div className="search-books-input-wrapper">
                         { }
@@ -53,8 +50,8 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.books.length > 0 && 
-                        this.state.books.map(book => <BookShelfs key = {book + Math.random()} {... book}/>)}
+                        {/* {this.querySearch !== '' ? 
+                        <p>Don't match any Books</p> : <p>Hallo</p> } */}
                     </ol>
                 </div>
             </div>

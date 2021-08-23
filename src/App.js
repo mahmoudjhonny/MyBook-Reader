@@ -2,59 +2,65 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import { update } from './BooksAPI'
 import './App.css'
-import Header from './Component/Header'
-import Search from './Component/Search'
+import { Route, Switch } from 'react-router-dom'
 import BookShelfs from './Component/BookShelfs'
-import SearchButton from './Component/SearchButton'
+import Searchpage from './Component/Search'
+
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
-    books_info: [],
-  }
-
-  SearchState = (state) => {
-    this.setState({showSearchPage: state});
+    query: '',
+    returns: [],
+    books_info: []
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(res => this.setState({books_info: res}))
+    BooksAPI.getAll().then(res =>
+      this.setState({ books_info: res }));
   }
 
-  shelvesChanges = (book, shelf) => {
-    update(book, shelf).then(() => {
+  shelvesChanges = (b, shelf) => {
+    update(b, shelf).then(() => {
       this.setState(prevState => ({
         // Filter all books in state to find correct book match
-        books: prevState.books.filter(b => {
-          if (b.id === book.id) {
+        books: prevState.books.filter(book => {
+          if (book.id === b.id) {
             // If book is found, set it's current shelf to a new one
-            return (book.shelf = shelf);
+            return (b.shelf = shelf);
           } else {
-            return book;
+            return b;
           }
         })
       }));
     });
   };
 
+  // searchBook = book => {
+  //   this.setState({ query: book });
+  //   if (book.length > 0) {
+  //     search(book).then(res => {
+  //       this.setState({ returns: res });
+  //     });
+  //   }
+  // }
+
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-         <Search showSearchPage = {this.SearchState}/>
-        ) : (
-          <div className="list-books">
-              <Header/>
-              <BookShelfs Books = {this.state.books_info} change = {this.shelvesChanges}/>
-              <SearchButton showSearchPage = {this.SearchState}/>
-          </div>
-        )}
+        <div className="list-books">
+          <Switch>
+            <Route
+            exact
+            path = '/home'>
+                {<BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />}
+            </Route>
+            <Route
+            exact
+            path = '/search'>
+                {<Searchpage />}
+            </Route>
+          </Switch>
+        </div>
       </div>
     )
   }

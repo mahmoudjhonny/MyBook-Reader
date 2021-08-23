@@ -1,5 +1,7 @@
 import React , { Component } from "react";
 import Shelf from "./Shelf";
+import SearchButton from "./SearchButton";
+import Header from './Header'
 
 class BookShelfs extends Component {
     render(){
@@ -15,25 +17,29 @@ class BookShelfs extends Component {
       console.log(wanttoread);
       console.log(reading);
         return(
-            <div className="list-books-content">
-            <div>
-              <Shelf 
-              Books = {currentlyReading}
-              change = {update_page} 
-              title = {"Currently Reading"}/>
+        <div className="list-books-content">
 
-              <Shelf 
-              Books = {wanttoread}  
-              change = {update_page}
-              title = {"Want To Read"}/>
+          <Header />
 
-              <Shelf 
-              Books = {reading} 
-              change = {update_page}
-              title = {"Read"}/>
+        <div>
+          <Shelf 
+          Books = {currentlyReading}
+          change = {update_page} 
+          title = {"Currently Reading"}/>
 
-            </div>
-          </div>
+          <Shelf 
+          Books = {wanttoread}  
+          change = {update_page}
+          title = {"Want To Read"}/>
+
+          <Shelf 
+          Books = {reading} 
+          change = {update_page}
+          title = {"Read"}/>
+
+        </div>
+        <SearchButton />
+      </div>
         )
     }
 }
