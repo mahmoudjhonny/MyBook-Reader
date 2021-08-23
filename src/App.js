@@ -1,6 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
-import { update } from './BooksAPI'
+import { search , update , getAll} from './BooksAPI'
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import BookShelfs from './Component/BookShelfs'
@@ -10,12 +9,12 @@ import Searchpage from './Component/Search'
 class BooksApp extends React.Component {
   state = {
     query: '',
-    returns: [],
-    books_info: []
+    books_info: [],
+    returns: []
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(res =>
+    getAll().then(res =>
       this.setState({ books_info: res }));
   }
 
@@ -35,30 +34,33 @@ class BooksApp extends React.Component {
     });
   };
 
-  // searchBook = book => {
-  //   this.setState({ query: book });
-  //   if (book.length > 0) {
-  //     search(book).then(res => {
-  //       this.setState({ returns: res });
-  //     });
-  //   }
-  // }
+  searchBook = book => {
+    this.setState({ query: book });
+    if (book.length > 0) {
+      search(book).then(res => {
+        this.setState({ returns: res });
+      });
+    }
+  }
 
   render() {
     return (
       <div className="app">
         <div className="list-books">
           <Switch>
-            <Route
-            exact
-            path = '/home'>
-                {<BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />}
-            </Route>
-            <Route
-            exact
-            path = '/search'>
-                {<Searchpage />}
-            </Route>
+            
+            <Route path = "/home" exact>
+              <BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />
+              </Route>
+                
+            <Route path = "/search" > 
+                    <Searchpage 
+                    state={this.state}
+                    change={this.shelvesChanges}
+                    search={this.searchBook}
+                    />
+            </Route>    
+
           </Switch>
         </div>
       </div>
