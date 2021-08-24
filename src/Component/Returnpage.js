@@ -3,9 +3,12 @@ import React, { Component } from "react";
 export default class Returnpage extends Component {
   render() {
 
+    // call books, change, returns and query props
     const { books , returns , query , change } = this.props;
 
     let book_return = [];
+    /** this condition for check the array of returns books id greater than zero and the query
+     isn't empty push the result books on a new array to show on the screen */
     returns.length > 0 && query !== "" ? 
       returns.forEach(result => {
         const matchingResults = books.filter(book => book.id === result.id);
@@ -13,6 +16,7 @@ export default class Returnpage extends Component {
         }) : <h2>Don't match any books</h2>
 
         return(
+          // UI
         <ol className="books-grid">
         {book_return.map(book => (
           <li key={book + Math.random()}>
@@ -60,7 +64,9 @@ export default class Returnpage extends Component {
                   </select>
                 </div>
               </div>
+              {/* itialize the title of book  */}
               <div className="book-title">{book.title}</div>
+              {/* itialize the authors of book */}
               <div className="book-authors">{book.authors}</div>
             </div>
           </li>

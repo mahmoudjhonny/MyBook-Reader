@@ -5,6 +5,7 @@ class CurrentlyReading extends Component {
 
     render() {
 
+    // call books, change and change props
         const { Books, title , change} = this.props;
 
         return (
@@ -21,7 +22,7 @@ class CurrentlyReading extends Component {
                                                 {
                                                     width: 128,
                                                     height: 193,
-                                                    backgroundImage: `url(${book.imageLinks.thumbnail})`
+                                                    backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})`
                                                 }}></div>
                                         <div className="book-shelf-changer">
                                             <select
@@ -38,7 +39,9 @@ class CurrentlyReading extends Component {
                                             </select>
                                         </div>
                                     </div>
+                                    {/* itialize the title of book  */}
                                     <div className="book-title">{book.title}</div>
+                                    {/* itialize the authors of book */}
                                     <div className="book-authors">{book.authors}</div>
                                 </div>
                             </li>

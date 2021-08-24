@@ -5,24 +5,28 @@ import { Route, Switch } from 'react-router-dom'
 import BookShelfs from './Component/BookShelfs'
 import Searchpage from './Component/Search'
 
-
 class BooksApp extends React.Component {
+   /** This is a state for intialize some objects such empty query for use in search func
+   , books_info is an empty array for store the group of books that retrieve it from API
+   and returns is an empty array also but for store the group of books that retrieve from search */ 
   state = {
     query: '',
     books_info: [],
     returns: []
   }
 
+  // this func for get all data from API before the page render and store it in books_info arr
   componentDidMount() {
     getAll().then(res =>
       this.setState({ books_info: res }));
   }
 
+// this func for move the books between shelves 
   shelvesChanges = (b, s) => {
     update(b, s).then(() => {
-      this.setState(prevState => ({
-        books_info: prevState.books_info.filter(book => {
-          if (book.id === b.id) {
+      this.setState(previous => ({
+        books_info: previous.books_info.filter(books_change => {
+          if (books_change.id === b.id) {
             return (b.shelf = s);
           } else {
             return b;
@@ -32,6 +36,7 @@ class BooksApp extends React.Component {
     });
   };
 
+  // The func for search on books in API for add it in shelves 
   searchBook = Searchbook => {
     this.setState({ query: Searchbook });
     if (Searchbook.length > 0) {
@@ -42,7 +47,10 @@ class BooksApp extends React.Component {
   }
 
   render() {
+
     return (
+
+      /** UI Part */
       <div className="app">
         <div className="list-books">
           <Switch>
@@ -61,8 +69,6 @@ class BooksApp extends React.Component {
               <BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />
               </Route>
                 
-               
-
           </Switch>
         </div>
       </div>

@@ -3,45 +3,52 @@ import Shelf from "./Shelf";
 import SearchButton from "./SearchButton";
 import Header from './Header'
 
-class BookShelfs extends Component {
+export default class BookShelfs extends Component {
+  /** UI */
     render(){
-      const books_info = this.props.Books;
-      console.log(books_info);
+      // call books and change props
+      const { Books , change } = this.props
+      
+      // this part for filter the books by shelf cat
+      const currentlyReading = Books.filter(book => book.shelf === "currentlyReading");
+      const wanttoread = Books.filter(book => book.shelf === "wantToRead");
+      const reading = Books.filter(book => book.shelf === "read");
 
-      const update_page = this.props.change;
-
-      const currentlyReading = books_info.filter(book => book.shelf === "currentlyReading");
-      const wanttoread = books_info.filter(book => book.shelf === "wantToRead");
-      const reading = books_info.filter(book => book.shelf === "read");
+      console.log(Books);
       console.log(currentlyReading);
       console.log(wanttoread);
       console.log(reading);
-        return(
-        <div className="list-books-content">
 
+        return(
+          /** UI */
+        <div className="list-books-content">
+          {/* render header component */}
           <Header />
 
         <div>
+
+          {/* render shelves Components */}
           <Shelf 
           Books = {currentlyReading}
-          change = {update_page} 
+          change = {change} 
           title = {"Currently Reading"}/>
 
           <Shelf 
           Books = {wanttoread}  
-          change = {update_page}
+          change = {change}
           title = {"Want To Read"}/>
 
           <Shelf 
           Books = {reading} 
-          change = {update_page}
+          change = {change}
           title = {"Read"}/>
 
         </div>
+
+        {/* render searhe button component  */}
         <SearchButton />
+
       </div>
         )
     }
 }
-
-export default BookShelfs;

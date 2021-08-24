@@ -12,7 +12,7 @@ class Search extends Component {
             <div className="search-books">
                 <div className="search-books-bar">
 
-                    <CloseSearch />
+                    <CloseSearch query = {query}/>
 
                     <div className="search-books-input-wrapper">
                         <input
