@@ -8,7 +8,7 @@ class BookShelfs extends Component {
       const books_info = this.props.Books;
       console.log(books_info);
 
-      const update_page = this.props.update;
+      const update_page = this.props.change;
 
       const currentlyReading = books_info.filter(book => book.shelf === "currentlyReading");
       const wanttoread = books_info.filter(book => book.shelf === "wantToRead");

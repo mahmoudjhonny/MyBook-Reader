@@ -1,38 +1,54 @@
 import React, { Component } from "react";
-import { update } from '../BooksAPI'
 
 export default class Returnpage extends Component {
   render() {
 
-    const { books, returns, query } = this.props;
+    const { books , returns , query , change } = this.props;
 
-    let returns_search_array = [];
-
-returns.length > 0 && query !== "" ? 
+    let book_return = [];
+    returns.length > 0 && query !== "" ? 
       returns.forEach(result => {
-        const results_Book = books.filter(book => book.id === result.id);
-        (results_Book.length > 0) ? returns_search_array.push(...results_Book) : returns_search_array.push(result)
-        }) : <h2>Don't match any book with this name</h2>
-    
+        const matchingResults = books.filter(book => book.id === result.id);
+       (matchingResults.length > 0) ? book_return.push(...matchingResults) : book_return.push(result)
+        }) : <h2>Don't match any books</h2>
 
-    return (
-      <ol className="books-grid">
-        {returns_search_array.map(book => (
+        return(
+        <ol className="books-grid">
+        {book_return.map(book => (
           <li key={book + Math.random()}>
             <div className="book">
               <div className="book-top">
-                <div className="book-cover"
-                  style={
-                    {
+                {book.imageLinks && (
+                  <img
+                    src={book.imageLinks.thumbnail}
+                    className="book-cover"
+                    alt={book.title}
+                    style={{ width: 128 }}
+                  />
+                )}
+                {!book.imageLinks && (
+                  <div
+                    className="book-cover"
+                    style={{
                       width: 128,
                       height: 193,
-                      backgroundImage: `url(${book.imageLinks.thumbnail})`
-                    }}></div>
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    NO IMAGE
+                  </div>
+                )}
                 <div className="book-shelf-changer">
+                  {/* If book is not on any shelf, give dropdown an empty value; otherwise set it's value to shelf name. On menu change, call the update props method to change shelf */}
                   <select
                     id={book.id}
                     value={book.shelf ? book.shelf : "none"}
-                    onChange={e => update(book, e.target.value)}
+                    onChange={e => change(book, e.target.value)}
                   >
                     <option value="move" disabled>
                       Move to...

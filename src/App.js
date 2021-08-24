@@ -18,14 +18,12 @@ class BooksApp extends React.Component {
       this.setState({ books_info: res }));
   }
 
-  shelvesChanges = (b, shelf) => {
-    update(b, shelf).then(() => {
+  shelvesChanges = (b, s) => {
+    update(b, s).then(() => {
       this.setState(prevState => ({
-        // Filter all books in state to find correct book match
-        books: prevState.books.filter(book => {
+        books_info: prevState.books_info.filter(book => {
           if (book.id === b.id) {
-            // If book is found, set it's current shelf to a new one
-            return (b.shelf = shelf);
+            return (b.shelf = s);
           } else {
             return b;
           }
@@ -34,10 +32,10 @@ class BooksApp extends React.Component {
     });
   };
 
-  searchBook = book => {
-    this.setState({ query: book });
-    if (book.length > 0) {
-      search(book).then(res => {
+  searchBook = Searchbook => {
+    this.setState({ query: Searchbook });
+    if (Searchbook.length > 0) {
+      search(Searchbook).then(res => {
         this.setState({ returns: res });
       });
     }
@@ -49,10 +47,6 @@ class BooksApp extends React.Component {
         <div className="list-books">
           <Switch>
             
-            <Route path = "/" exact>
-              <BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />
-              </Route>
-                
             <Route path = "/search" > 
                     <Searchpage 
                     Books = {this.state.books_info}
@@ -61,7 +55,13 @@ class BooksApp extends React.Component {
                     search = {this.searchBook}
                     returns = {this.state.returns}
                     />
-            </Route>    
+            </Route>
+            
+            <Route path = "/" exact>
+              <BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />
+              </Route>
+                
+               
 
           </Switch>
         </div>

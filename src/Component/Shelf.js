@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
-import { update } from "../BooksAPI"
 
 class CurrentlyReading extends Component {
+
     render() {
 
-        const { Books, title } = this.props;
+        const { Books, title , change} = this.props;
 
         return (
             <div className="bookshelf">
@@ -27,7 +27,7 @@ class CurrentlyReading extends Component {
                                             <select
                                                 id={book.id}
                                                 value={book.shelf ? book.shelf : "none"}
-                                                onChange={e => update(book, e.target.value)}
+                                                onChange={e => change(book, e.target.value)}
                                             >
 
                                                 <option value="move" disabled>Move to...</option>
@@ -51,9 +51,7 @@ class CurrentlyReading extends Component {
 }
 
 CurrentlyReading.propTypes = {
-    update: PropTypes.func ,
-    title: PropTypes.string,
-    Books: PropTypes.array
+    update: PropTypes.func
 };
 
 export default CurrentlyReading;
