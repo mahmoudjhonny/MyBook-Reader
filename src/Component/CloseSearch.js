@@ -10,7 +10,7 @@ export default class CloseSearch extends Component {
     render() {
         return (
             <Link
-                    to = '/home' 
+                    to = '/' 
                     className="close-search"
                     onClick = {this.clearSearchInput}
                     >

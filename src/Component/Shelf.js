@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { update } from "../BooksAPI"
 
 class CurrentlyReading extends Component {
-
     render() {
 
         const { Books, title } = this.props;
@@ -52,7 +51,9 @@ class CurrentlyReading extends Component {
 }
 
 CurrentlyReading.propTypes = {
-    update: PropTypes.func
+    update: PropTypes.func ,
+    title: PropTypes.string,
+    Books: PropTypes.array
 };
 
 export default CurrentlyReading;

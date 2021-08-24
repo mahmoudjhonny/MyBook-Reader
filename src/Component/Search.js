@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import CloseSearch from './CloseSearch';
-import SearchReturnes from './SearchReturnes'
+import Returnpage from './Returnpage'
 
 class Search extends Component {
 
     render() {
 
-        const {state , search , change} = this.props
+        const {returns , search , change , Books , query} = this.props
 
         return (
             <div className="search-books">
@@ -15,22 +15,21 @@ class Search extends Component {
                     <CloseSearch />
 
                     <div className="search-books-input-wrapper">
-                        { }
                         <input
                             type="text"
                             placeholder="Search by title or author"
                             onChange={e => {search(e.target.value)}} 
-                            value = {state.query}
+                            value = {query}
                             />
 
                     </div>
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        <SearchReturnes
-                        books = {state.books_info}
-                        returns = {state.returns}
-                        query = {state.query}
+                        <Returnpage
+                        books = {Books}
+                        returns = {returns}
+                        query = {query}
                         change = {change}
                         />
                     </ol>

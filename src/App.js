@@ -49,15 +49,17 @@ class BooksApp extends React.Component {
         <div className="list-books">
           <Switch>
             
-            <Route path = "/home" exact>
+            <Route path = "/" exact>
               <BookShelfs Books={this.state.books_info} change={this.shelvesChanges} />
               </Route>
                 
             <Route path = "/search" > 
                     <Searchpage 
-                    state={this.state}
-                    change={this.shelvesChanges}
-                    search={this.searchBook}
+                    Books = {this.state.books_info}
+                    query = {this.state.query}
+                    change = {this.shelvesChanges}
+                    search = {this.searchBook}
+                    returns = {this.state.returns}
                     />
             </Route>    
 
