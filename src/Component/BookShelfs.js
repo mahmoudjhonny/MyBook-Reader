@@ -14,11 +14,6 @@ export default class BookShelfs extends Component {
       const wanttoread = Books.filter(book => book.shelf === "wantToRead");
       const reading = Books.filter(book => book.shelf === "read");
 
-      console.log(Books);
-      console.log(currentlyReading);
-      console.log(wanttoread);
-      console.log(reading);
-
         return(
           /** UI */
         <div className="list-books-content">

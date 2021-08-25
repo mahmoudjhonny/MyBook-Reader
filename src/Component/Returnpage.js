@@ -19,7 +19,7 @@ export default class Returnpage extends Component {
           // UI
         <ol className="books-grid">
         {book_return.map(book => (
-          <li key={book + Math.random()}>
+          <li key={book.id}>
             <div className="book">
               <div className="book-top">
                 {book.imageLinks && (
@@ -67,7 +67,7 @@ export default class Returnpage extends Component {
               {/* itialize the title of book  */}
               <div className="book-title">{book.title}</div>
               {/* itialize the authors of book */}
-              <div className="book-authors">{book.authors}</div>
+              <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
             </div>
           </li>
         ))}

@@ -42,7 +42,7 @@ class CurrentlyReading extends Component {
                                     {/* itialize the title of book  */}
                                     <div className="book-title">{book.title}</div>
                                     {/* itialize the authors of book */}
-                                    <div className="book-authors">{book.authors}</div>
+                                    <div className="book-authors">{book.authors && book.authors.join(' , ')}</div>
                                 </div>
                             </li>
                         ))}
@@ -54,7 +54,9 @@ class CurrentlyReading extends Component {
 }
 
 CurrentlyReading.propTypes = {
-    update: PropTypes.func
+    title: PropTypes.string,
+    change: PropTypes.func,
+    books: PropTypes.array
 };
 
 export default CurrentlyReading;
